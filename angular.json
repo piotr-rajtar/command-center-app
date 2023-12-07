@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gtd-app": {
+    "command-center-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/gtd-app",
+            "outputPath": "dist/command-center-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "gtd-app:build:production"
+              "buildTarget": "command-center-app:build:production"
             },
             "development": {
-              "buildTarget": "gtd-app:build:development"
+              "buildTarget": "command-center-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "gtd-app:build"
+            "buildTarget": "command-center-app:build"
           }
         },
         "test": {
