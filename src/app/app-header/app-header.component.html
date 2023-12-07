@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a
+      class="navbar-brand"
+      routerLink="/"
+    >
+      GTD
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div
+      class="collapse navbar-collapse"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            ariaCurrentWhenActive="page"
+            class="nav-link"
+            routerLink="/"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+          >
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            ariaCurrentWhenActive="page"
+            class="nav-link"
+            routerLink="/inbox"
+            routerLinkActive="active"
+          >
+            Inbox
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            ariaCurrentWhenActive="page"
+            class="nav-link"
+            routerLink="/lists"
+            routerLinkActive="active"
+          >
+            Lists
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
