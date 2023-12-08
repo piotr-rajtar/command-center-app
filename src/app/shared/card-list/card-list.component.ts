@@ -1,0 +1,21 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Card } from '../../typings';
+
+import { CardComponent } from '../card/card.component';
+
+@Component({
+  selector: 'app-card-list',
+  standalone: true,
+  imports: [ CardComponent ],
+  templateUrl: './card-list.component.html',
+  styleUrl: './card-list.component.scss'
+})
+export class CardListComponent {
+  @Input({ required: true }) cards!: Card[];
+  @Output() openCard = new EventEmitter<string>();
+
+  openCardClick(cardId: string): void {
+    this.openCard.emit(cardId);
+  }
+}

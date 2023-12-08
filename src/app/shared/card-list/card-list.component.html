@@ -1,0 +1,9 @@
+<div class="card-group">
+  @for (card of cards; track card.id) {
+    <app-card
+      [card]="card"
+      (openCard)="openCardClick(card.id)"
+    />
+  }
+</div>
+
