@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav
+  class="navbar navbar-expand-lg bg-body-tertiary"
+  data-bs-theme="dark"
+>
   <div class="container-fluid">
     <a
       class="navbar-brand"
@@ -7,18 +10,22 @@
       Command Center
     </a>
     <button
-      class="navbar-toggler"
-      type="button"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
+      aria-controls="navbarContent"
+      [attr.aria-expanded]="isMobileMenuOpen()"
       aria-label="Toggle navigation"
+      class="navbar-toggler"
+      testId="mobileMenuButton"
+      type="button"
+      (click)="toggleMobileMenu($event)"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div
       class="collapse navbar-collapse"
-      id="navbarSupportedContent"
+      [class.show]="isMobileMenuOpen()"
+      id="navbarContent"
+      testId="mobileMenu"
     >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -26,8 +33,10 @@
             ariaCurrentWhenActive="page"
             class="nav-link"
             routerLink="/"
-            [routerLinkActiveOptions]="{ exact: true }"
             routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            testId="homeLink"
+            (click)="closeMenu($event)"
           >
             Home
           </a>
@@ -38,6 +47,8 @@
             class="nav-link"
             routerLink="/inbox"
             routerLinkActive="active"
+            testId="inboxLink"
+            (click)="closeMenu($event)"
           >
             Inbox
           </a>
@@ -48,6 +59,8 @@
             class="nav-link"
             routerLink="/lists"
             routerLinkActive="active"
+            testId="listsLink"
+            (click)="closeMenu($event)"
           >
             Lists
           </a>
