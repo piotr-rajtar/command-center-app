@@ -1,9 +1,10 @@
-<div class="card-group">
+<div class="d-flex flex-column flex-md-row align-items-center">
   @for (card of cards; track card.id) {
-    <app-card
-      [card]="card"
-      (openCard)="openCardClick(card.id)"
-    />
+    <div class="mb-3 mb-md-0 me-md-3">
+      <app-card
+        [card]="card"
+        (openCard)="openCardClick(card.id)"
+      />
+    </div>
   }
 </div>
-
