@@ -18,9 +18,10 @@ describe('CardListComponent', () => {
     component.cards = [
       {
         id: 'test_id',
+        description: 'test_description',
         img: 'test_img',
         title: 'test_title',
-        description: 'test_description'
+        url: 'testUrl'
       }
     ];
 
