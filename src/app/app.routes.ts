@@ -7,10 +7,10 @@ export const routes: Routes = [
   },
   {
     path: 'inbox',
-    loadComponent: () => import('./inbox/inbox.component').then(m => m.InboxComponent),
+    loadChildren: () => import('./inbox/router/inbox.routes').then(m => m.inboxRoutes),
   },
   {
     path: 'lists',
-    loadComponent: () => import('./lists/lists.component').then(m => m.ListsComponent),
+    loadChildren: () => import('./lists/router/lists.routes').then(m => m.listsRoutes),
   }
 ];
