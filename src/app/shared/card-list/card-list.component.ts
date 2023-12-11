@@ -15,7 +15,7 @@ export class CardListComponent {
   @Input({ required: true }) cards!: Card[];
   @Output() openCard = new EventEmitter<string>();
 
-  openCardClick(cardId: string): void {
-    this.openCard.emit(cardId);
+  openCardClick(cardUrl: string): void {
+    this.openCard.emit(cardUrl);
   }
 }

@@ -1,12 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { CardListComponent } from '../shared/card-list/card-list.component';
+
+import { CARDS } from './cards';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [CardListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  router = inject(Router);
 
+  CARDS = CARDS;
+
+  openCard(cardUrl: string) {
+    this.router.navigate([cardUrl]);
+  }
 }

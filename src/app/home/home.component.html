@@ -1,1 +1,11 @@
-<h1>CC - Command Center</h1>
+<div class="container">
+  <div class="row my-5">
+    <h1 class="text-center">Command Center</h1>
+  </div>
+  <div class="row">
+    <app-card-list
+      [cards]="CARDS"
+      (openCard)="openCard($event)"
+    />
+  </div>
+</div>
