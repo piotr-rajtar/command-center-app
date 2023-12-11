@@ -28,43 +28,21 @@
       testId="mobileMenu"
     >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a
-            ariaCurrentWhenActive="page"
-            class="nav-link"
-            routerLink="/"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            testId="homeLink"
-            (click)="closeMenu($event)"
-          >
-            Home
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            ariaCurrentWhenActive="page"
-            class="nav-link"
-            routerLink="/inbox"
-            routerLinkActive="active"
-            testId="inboxLink"
-            (click)="closeMenu($event)"
-          >
-            Inbox
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            ariaCurrentWhenActive="page"
-            class="nav-link"
-            routerLink="/lists"
-            routerLinkActive="active"
-            testId="listsLink"
-            (click)="closeMenu($event)"
-          >
-            Lists
-          </a>
-        </li>
+        @for (navLink of NAV_LINKS; track navLink.id) {
+          <li class="nav-item">
+            <a
+              ariaCurrentWhenActive="page"
+              class="nav-link"
+              [routerLink]="navLink.routerLink"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              [attr.testId]="navLink.testId"
+              (click)="closeMenu($event)"
+            >
+              {{ navLink.content }}
+            </a>
+          </li>
+        }
       </ul>
     </div>
   </div>

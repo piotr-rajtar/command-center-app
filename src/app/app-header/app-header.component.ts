@@ -2,6 +2,8 @@ import { Component, OnDestroy, effect, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Subscription, fromEvent, tap } from 'rxjs';
 
+import { NAV_LINKS } from './nav-links';
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -10,6 +12,8 @@ import { Subscription, fromEvent, tap } from 'rxjs';
   styleUrl: './app-header.component.scss'
 })
 export class AppHeaderComponent implements OnDestroy {
+  NAV_LINKS = NAV_LINKS;
+
   isMobileMenuOpen = signal(false);
 
   outsideClickSubscription?: Subscription;
