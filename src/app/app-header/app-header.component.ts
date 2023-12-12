@@ -1,7 +1,10 @@
-import { Component, OnDestroy, effect, signal } from '@angular/core';
+import { Component, OnDestroy, computed, effect, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Subscription, fromEvent, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
 
+import { DropdownService } from '../shared/services/dropdown.service';
+
+import { MENU_DROPDOWN_ID } from './const';
 import { NAV_LINKS } from './nav-links';
 
 @Component({
@@ -14,19 +17,25 @@ import { NAV_LINKS } from './nav-links';
 export class AppHeaderComponent implements OnDestroy {
   NAV_LINKS = NAV_LINKS;
 
-  isMobileMenuOpen = signal(false);
+  isMobileMenuOpen = computed<boolean>(() =>
+    this.dropdownService.openedDropdownId() === MENU_DROPDOWN_ID
+  );
 
   outsideClickSubscription?: Subscription;
 
-  constructor() {
+  constructor(private dropdownService: DropdownService) {
     effect(() => {
       if(this.isMobileMenuOpen()) {
-        this.setOutsideClickSubscription();
+        this.outsideClickSubscription = this.dropdownService.outsideClick$.subscribe();
       }
     })
 
     effect(() => {
-      if(!this.isMobileMenuOpen() && this.outsideClickSubscription) {
+      if(
+        !this.isMobileMenuOpen() &&
+        this.outsideClickSubscription &&
+        !this.outsideClickSubscription.closed
+      ) {
         this.outsideClickSubscription.unsubscribe();
       }
     })
@@ -38,21 +47,17 @@ export class AppHeaderComponent implements OnDestroy {
     }
   }
 
-  setOutsideClickSubscription(): void {
-    this.outsideClickSubscription = fromEvent(document, 'click')
-      .pipe(
-        tap(() => this.isMobileMenuOpen.set(false)),
-      )
-      .subscribe();
-  }
-
   closeMenu(event: Event) {
-    this.isMobileMenuOpen.set(false);
+    this.dropdownService.closeDropdown();
     event.stopPropagation();
   }
 
   toggleMobileMenu(event: Event) {
-    this.isMobileMenuOpen.update(isMobileMenuOpen => !isMobileMenuOpen);
+    if(this.isMobileMenuOpen()) {
+      this.dropdownService.closeDropdown();
+    } else {
+      this.dropdownService.openDropdown(MENU_DROPDOWN_ID);
+    }
     event.stopPropagation();
   }
 }
