@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CardListComponent } from '../shared/card-list/card-list.component';
+import { CardListComponent } from '../shared/components/card-list/card-list.component';
 
 import { CARDS } from './cards';
 
