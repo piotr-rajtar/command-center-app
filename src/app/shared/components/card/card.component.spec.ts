@@ -18,7 +18,6 @@ describe('CardComponent', () => {
     component.card = {
       id: 'test_id',
       description: 'test_description',
-      img: 'test_img',
       title: 'test_title',
       url: 'testUrl'
     };

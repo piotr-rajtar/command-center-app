@@ -1,9 +1,11 @@
 <div class="card" style="width: 18rem;">
-  <img
-    [alt]="card.title"
-    class="card-img-top"
-    [src]="card.img"
-  >
+  @if (card.img) {
+    <img
+      [alt]="card.title"
+      class="card-img-top"
+      [src]="card.img"
+    >
+  }
   <div class="card-body">
     <h5 class="card-title">{{ card.title }}</h5>
     <p class="card-text">{{ card.description }}</p>
