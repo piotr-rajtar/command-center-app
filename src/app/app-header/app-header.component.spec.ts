@@ -1,20 +1,18 @@
-import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { click } from '../testing/utils';
+import { DropdownService } from '../shared/services/dropdown.service';
+import { DummyComponent, click, dropdownServiceMock } from '../testing/utils';
 
 import { AppHeaderComponent } from './app-header.component';
-
-@Component({})
-class DummyComponent {};
 
 describe('AppHeaderComponent', () => {
   let component: AppHeaderComponent;
   let fixture: ComponentFixture<AppHeaderComponent>;
   let router: Router;
+  let dropdownService: DropdownService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -26,12 +24,21 @@ describe('AppHeaderComponent', () => {
           { path: 'lists', component: DummyComponent }
         ]),
       ],
+      providers: [
+        {
+          provide: DropdownService,
+          useValue: dropdownServiceMock,
+        }
+      ],
     })
     .compileComponents();
 
     router = TestBed.inject(Router);
+    dropdownService = TestBed.inject(DropdownService);
     fixture = TestBed.createComponent(AppHeaderComponent);
     component = fixture.componentInstance;
+
+    dropdownService.closeDropdown();
 
     fixture.detectChanges();
   });
@@ -80,7 +87,7 @@ describe('AppHeaderComponent', () => {
   });
 
   it('should hide mobile menu after mobile menu button click, when mobile menu is showed', () => {
-    component.isMobileMenuOpen.set(true);
+    component.toggleMobileMenu(new Event('click'));
 
     fixture.detectChanges();
 
@@ -96,7 +103,7 @@ describe('AppHeaderComponent', () => {
   });
 
   it('should hide mobile menu after nav item click', () => {
-    component.isMobileMenuOpen.set(true);
+    component.toggleMobileMenu(new Event('click'));
 
     fixture.detectChanges();
 

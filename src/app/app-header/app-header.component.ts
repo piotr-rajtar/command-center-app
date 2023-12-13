@@ -1,4 +1,4 @@
-import { Component, OnDestroy, computed, effect, inject } from '@angular/core';
+import { Component, OnDestroy, computed, effect } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 
