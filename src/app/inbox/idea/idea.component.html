@@ -1,0 +1,52 @@
+<div class="card w-100 mb-2">
+  <div class="card-body">
+    <p class="card-text">{{ idea.content }}</p>
+    <div class="dropdown d-grid d-md-flex">
+      <a
+        [attr.aria-expanded]="isDropdownOpen()"
+        class="btn btn-secondary dropdown-toggle"
+        [class.show]="isDropdownOpen()"
+        role="button"
+        testId="actionsButton"
+        (click)="toggleDropdown($event)"
+      >
+        Actions
+      </a>
+
+      <ul
+        class="dropdown-menu"
+        [class.show]="isDropdownOpen()"
+        [class.dropdown-options]="isDropdownOpen()"
+        testId="dropdownMenu"
+      >
+        <li>
+          <a
+            class="dropdown-item"
+            testId="assignOption"
+            (click)="assignIdea()"
+          >
+            Assign
+          </a>
+        </li>
+        <li>
+          <a
+            class="dropdown-item"
+            testId="editOption"
+            (click)="editIdea()"
+          >
+            Edit
+          </a>
+        </li>
+        <li>
+          <a
+            class="dropdown-item"
+            testId="removeOption"
+            (click)="removeIdea()"
+          >
+            Remove
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
