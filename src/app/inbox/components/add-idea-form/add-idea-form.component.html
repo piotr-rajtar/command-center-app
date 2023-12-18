@@ -16,7 +16,7 @@
   <button
     id="add-idea-button"
     class="btn btn-outline-success"
-    [disabled]="isSubmitButtonDisabled"
+    [disabled]="!(ideaForm.valid && idea.trim())"
     type="submit"
   >
     Add

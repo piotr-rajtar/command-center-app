@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-idea-form',
@@ -11,20 +11,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 export class AddIdeaFormComponent {
   @Output() addIdea = new EventEmitter<string>();
 
-  @ViewChild('ideaForm') ideaForm?: NgForm;
-
   idea = '';
-
-  get isSubmitButtonDisabled(): boolean {
-    return !(this.ideaForm?.valid && this.idea.trim().length);
-  }
 
   submitIdea() {
     if(!this.idea.trim()) {
       return;
     }
 
-    this.addIdea.emit(this.idea);
+    this.addIdea.emit(this.idea.trim());
 
     this.idea = '';
   }
