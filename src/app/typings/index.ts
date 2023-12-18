@@ -6,11 +6,6 @@ export interface Card {
   url: string;
 }
 
-export interface Idea {
-  id: string;
-  content: string;
-}
-
 export interface NavLink {
   id: string,
   content: string,
