@@ -1,0 +1,24 @@
+<form
+  #ideaForm="ngForm"
+  class="input-group mb-3"
+  (ngSubmit)="submitIdea()"
+ >
+  <input
+    aria-describedby="edit-idea-button"
+    aria-label="Edit idea"
+    class="form-control"
+    name="idea"
+    placeholder="Edit idea..."
+    required
+    type="text"
+    [(ngModel)]="ideaToEdit"
+  >
+  <button
+    id="edit-idea-button"
+    class="btn btn-outline-primary"
+    [disabled]="!(ideaForm.valid && ideaToEdit.trim())"
+    type="submit"
+  >
+    Edit
+  </button>
+</form>
