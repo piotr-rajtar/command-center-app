@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { click } from '../../testing/utils';
+import { click } from '../../../testing/utils';
 
 import { AddIdeaFormComponent } from './add-idea-form.component';
 

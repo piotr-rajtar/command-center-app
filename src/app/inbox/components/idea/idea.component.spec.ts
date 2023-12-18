@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DropdownService } from '../../shared/services/dropdown.service';
-import { click, dropdownServiceMock } from '../../testing/utils';
+import { DropdownService } from '../../../shared/services/dropdown.service';
+import { click, dropdownServiceMock } from '../../../testing/utils';
 
 import { IdeaComponent } from './idea.component';
 import { By } from '@angular/platform-browser';

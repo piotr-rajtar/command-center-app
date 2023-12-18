@@ -6,11 +6,11 @@ import {
   Output,
   computed,
   effect,
-  inject,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { DropdownService } from '../../shared/services/dropdown.service';
+import { DropdownService } from '../../../shared/services/dropdown.service';
+
 import { Idea } from '../../typings';
 
 @Component({
