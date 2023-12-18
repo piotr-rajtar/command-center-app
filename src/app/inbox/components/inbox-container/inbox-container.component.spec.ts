@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InboxComponent } from './inbox.component';
+import { InboxContainerComponent } from './inbox-container.component';
 
-describe('InboxComponent', () => {
-  let component: InboxComponent;
-  let fixture: ComponentFixture<InboxComponent>;
+describe('InboxContainerComponent', () => {
+  let component: InboxContainerComponent;
+  let fixture: ComponentFixture<InboxContainerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InboxComponent]
+      imports: [InboxContainerComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(InboxComponent);
+
+    fixture = TestBed.createComponent(InboxContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

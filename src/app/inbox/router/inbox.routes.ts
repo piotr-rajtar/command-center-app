@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 export const inboxRoutes: Routes = [
   {
     path: '',
-    loadComponent: () => import('../inbox.component').then(m => m.InboxComponent),
+    loadComponent: () => import('../components/inbox-container/inbox-container.component')
+      .then(m => m.InboxContainerComponent),
   },
 ];
