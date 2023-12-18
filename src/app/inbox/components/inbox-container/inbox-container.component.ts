@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { v4 } from 'uuid';
-
 import { Idea } from '../../typings';
 
 import { AddIdeaFormComponent } from '../add-idea-form/add-idea-form.component';
