@@ -1,4 +1,9 @@
-import { NavLink } from '../typings';
+interface NavLink {
+  id: string,
+  content: string,
+  routerLink: string,
+  testId: string,
+}
 
 export const NAV_LINKS: NavLink[] = [
   {

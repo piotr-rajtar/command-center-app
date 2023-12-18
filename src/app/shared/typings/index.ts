@@ -5,10 +5,3 @@ export interface Card {
   title: string;
   url: string;
 }
-
-export interface NavLink {
-  id: string,
-  content: string,
-  routerLink: string,
-  testId: string,
-}

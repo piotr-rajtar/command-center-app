@@ -1,4 +1,4 @@
-import { Card } from '../typings';
+import { Card } from '../shared/typings';
 
 export const CARDS: Card[] = [
   {
