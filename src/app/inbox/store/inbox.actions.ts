@@ -7,60 +7,56 @@ import {
 
 import { Idea } from '../typings';
 
-export const triggerIdeaCreation = createAction(
-  '[Add Idea Form] Trigger Idea Creation',
+export const startIdeaCreation = createAction(
+  '[Add Idea Form] Idea Creation',
   props<{ idea: string }>(),
 );
 
-export const addIdeaActions = createActionGroup({
-  source: 'Trigger Idea Creation Effect',
+export const createIdeaActions = createActionGroup({
+  source: 'Idea Creation Effect',
   events: {
-    'Create Idea': emptyProps(),
-    'Create Idea Success': props<{ idea: Idea, successMessage: string }>(),
-    'Create Idea Error': props<{ errorMessage: string }>(),
+    'Idea Creation Success': props<{ idea: Idea, successMessage: string }>(),
+    'Idea Creation Error': props<{ errorMessage: string }>(),
   },
 });
 
-export const triggerIdeaEdition = createAction(
-  '[Edit Idea Form] Trigger Idea Edition',
+export const startIdeaUpdate = createAction(
+  '[Edit Idea Form] Idea Updation',
   props<{ idea: Idea }>(),
 );
 
 export const updateIdeaActions = createActionGroup({
-  source: 'Trigger Idea Edition Effect',
+  source: 'Idea Updation Effect',
   events: {
-    'Update Idea': emptyProps(),
-    'Update Idea Success': props<{ idea: Idea, successMessage: string }>(),
-    'Update Idea Error': props<{ errorMessage: string }>(),
+    'Idea Updation Success': props<{ idea: Idea, successMessage: string }>(),
+    'Idea Updation Error': props<{ errorMessage: string }>(),
   },
 });
 
 export const ideaActions = createActionGroup({
   source: 'Idea',
   events: {
-    'Assign Idea': props<{ idea: Idea }>(),
-    'Set Edit Mode': emptyProps(),
-    'Trigger Idea Removal': props<{ ideaId: string }>(),
+    //'Assign Idea': props<{ idea: Idea }>(), //TODO: Handle idea assignation
+    'Set Idea To Edit': props<{ idea: Idea }>(),
+    'Idea Removal': props<{ ideaId: string }>(),
   },
 });
 
-export const deleteIdeaActions = createActionGroup({
-  source: 'Trigger Idea Removal Effect',
+export const removeIdeaActions = createActionGroup({
+  source: 'Idea Removal Effect',
   events: {
-    'Delete Idea': emptyProps(),
-    'Delete Idea Success': props<{ ideaId: string, successMessage: string }>(),
-    'Delete Idea Error': props<{ errorMessage: string }>(),
+    'Idea Removal Success': props<{ ideaId: string, successMessage: string }>(),
+    'Idea Removal Error': props<{ errorMessage: string }>(),
   },
 });
 
-export const getIdeas = createAction(
-  '[Inbox Resolver] Trigger Get Ideas'
+export const startReadIdeas = createAction(
+  '[Inbox Resolver] Read Ideas'
 );
 
-export const readIdeaActions = createActionGroup({
-  source: 'Trigger Get Ideas Effect',
+export const readIdeasActions = createActionGroup({
+  source: 'Read Ideas Effect',
   events: {
-    'Read Ideas': emptyProps(),
     'Read Ideas Success': props<{ ideas: Idea[], successMessage: string }>(),
     'Read Ideas Error': props<{ errorMessage: string }>(),
   },
