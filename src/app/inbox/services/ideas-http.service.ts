@@ -23,7 +23,7 @@ export class IdeasHttpService {
 
   deleteIdea(ideaId: string): Observable<{ ideaId: string }> {
     return this.httpClient.delete<{ ideaId: string }>(
-      `https://angular-command-center-default-rtdb.europe-west1.firebasedatabase.app/ideas/${ideaId}`,
+      `https://angular-command-center-default-rtdb.europe-west1.firebasedatabase.app/ideas/${ideaId}.json`,
     )
   }
 
