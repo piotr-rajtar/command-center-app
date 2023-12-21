@@ -1,6 +1,13 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, exhaustMap, map, of } from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  exhaustMap,
+  map,
+  mergeMap,
+  of,
+} from 'rxjs';
 
 import { IdeasHttpService } from '../services/ideas-http.service';
 
@@ -24,6 +31,30 @@ export const createIdea = createEffect(
               of(InboxActions.createIdeaActions.ideaCreationError({
                 errorMessage: 'Idea creation failed',
               })),
+            ),
+          );
+      }),
+    );
+  },
+  { functional: true }
+);
+
+export const deleteIdea = createEffect(
+  (actions$ = inject(Actions), ideasHttpService = inject(IdeasHttpService)) => {
+    return actions$.pipe(
+      ofType(InboxActions.ideaActions.ideaRemoval),
+      mergeMap(action => {
+        return ideasHttpService
+          .deleteIdea(action.ideaId)
+          .pipe(
+            map(() => InboxActions.removeIdeaActions.ideaRemovalSuccess({
+              ideaId: action.ideaId,
+              successMessage: 'Idea deleted successfully'
+            })),
+            catchError(() =>
+              of(InboxActions.removeIdeaActions.ideaRemovalError({
+                errorMessage: 'Idea deletion failed'
+              }))
             ),
           );
       }),
