@@ -1,7 +1,6 @@
 import {
   createAction,
   createActionGroup,
-  emptyProps,
   props,
 } from '@ngrx/store';
 
@@ -36,7 +35,6 @@ export const updateIdeaActions = createActionGroup({
 export const ideaActions = createActionGroup({
   source: 'Idea',
   events: {
-    //'Assign Idea': props<{ idea: Idea }>(), //TODO: Handle idea assignation
     'Set Idea To Edit': props<{ idea: Idea }>(),
     'Idea Removal': props<{ ideaId: string }>(),
   },
@@ -68,4 +66,8 @@ export const clearDbSuccessMessage = createAction(
 
 export const clearDbErrorMessage = createAction(
   '[Error Alert] Clear Db Error Message'
+);
+
+export const stopEditMode = createAction(
+  '[Inbox Container] Stop Edit Mode'
 );

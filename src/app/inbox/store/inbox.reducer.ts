@@ -64,6 +64,7 @@ export const inboxReducer = createReducer(
           content: action.idea.content,
         };
       }),
+      ideaToEdit: null,
       isEditMode: false,
     }
   }),
@@ -97,4 +98,11 @@ export const inboxReducer = createReducer(
       isEditMode: true,
     };
   }),
+  on(InboxActions.stopEditMode, state => {
+    return {
+      ...state,
+      ideaToEdit: null,
+      isEditMode: false,
+    }
+  })
 );
