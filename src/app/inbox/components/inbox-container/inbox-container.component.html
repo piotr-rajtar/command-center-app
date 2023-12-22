@@ -4,22 +4,19 @@
   </div>
 
   <div class="row mb-5">
-    @if (isIdeaFormInEditMode) {
-      <app-edit-idea-form
-        [idea]="idea"
-        (editIdea)="editIdea($event)"
-      />
+    @if (isEditMode$ | async) {
+      <app-edit-idea-form />
     } @else {
-      <app-add-idea-form (addIdea)="addIdea($event)" />
+      <app-add-idea-form />
     }
   </div>
 
-  <div class="row">
-    <app-idea-list
-      [ideas]="ideas"
-      (assign)="assignIdea($event)"
-      (edit)="setEditMode($event)"
-      (remove)="removeIdea($event)"
-    />
-  </div>
+  @if((ideas$ | async)?.length) {
+    <div class="row">
+      <app-idea-list
+        [ideas]="(ideas$ | async) || []"
+        (assign)="assignIdea($event)"
+      />
+    </div>
+  }
 </div>
