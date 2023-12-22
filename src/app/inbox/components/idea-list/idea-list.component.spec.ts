@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { IdeaListComponent } from './idea-list.component';
 
@@ -8,7 +9,8 @@ describe('IdeaListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IdeaListComponent]
+      imports: [IdeaListComponent],
+      providers: [provideMockStore()],
     })
     .compileComponents();
 

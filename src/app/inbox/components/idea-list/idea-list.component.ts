@@ -15,18 +15,8 @@ export class IdeaListComponent {
   @Input({ required: true }) ideas!: Idea[];
 
   @Output() assign = new EventEmitter<string>();
-  @Output() edit = new EventEmitter<string>();
-  @Output() remove = new EventEmitter<string>();
 
   assignIdea(ideaId: string) {
     this.assign.emit(ideaId);
-  }
-
-  editIdea(ideaId: string) {
-    this.edit.emit(ideaId);
-  }
-
-  removeIdea(ideaId: string) {
-    this.remove.emit(ideaId);
   }
 }
