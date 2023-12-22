@@ -17,8 +17,8 @@ describe('EditIdeaFormComponent', () => {
         id: '1',
         content: 'Edited idea',
       },
-    }
-  }
+    },
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
