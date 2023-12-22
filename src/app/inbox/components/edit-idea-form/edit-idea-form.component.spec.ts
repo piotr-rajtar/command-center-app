@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { click } from '../../../testing/utils';
 
@@ -10,20 +11,25 @@ describe('EditIdeaFormComponent', () => {
   let fixture: ComponentFixture<EditIdeaFormComponent>;
   let input: HTMLInputElement;
 
-  const ideaProp = 'Idea to edit';
-  const editedIdea = 'Edited idea';
+  const initialState = {
+    inbox: {
+      ideaToEdit: {
+        id: '1',
+        content: 'Edited idea',
+      },
+    }
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditIdeaFormComponent]
+      imports: [EditIdeaFormComponent],
+      providers: [provideMockStore({ initialState })],
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(EditIdeaFormComponent);
 
     component = fixture.componentInstance;
-    component.idea = ideaProp;
-
     input = fixture.nativeElement.querySelector('input');
 
     fixture.detectChanges();
@@ -34,41 +40,37 @@ describe('EditIdeaFormComponent', () => {
   });
 
   it('should initially set the input field value correctly', () => {
-    expect(input.value).toBe(ideaProp);
-  });
-
-  it('should initially set the component #ideaToEdit value correctly', () => {
-    expect(component.ideaToEdit).toBe(ideaProp);
+    expect(input.value).toBe(initialState.inbox.ideaToEdit.content);
   });
 
   it('should update the idea in the component', () => {
     const event = new Event('input');
 
-    input.value = editedIdea;
+    input.value = 'Test';
     input.dispatchEvent(event);
 
     fixture.detectChanges();
 
-    expect(component.ideaToEdit).toEqual(editedIdea);
+    expect(component.editedIdeaContent).toEqual('Test');
   });
 
   it('should update the idea on the input field', fakeAsync(() => {
-    component.ideaToEdit = editedIdea;
+    component.editedIdeaContent = 'Test';
 
     fixture.detectChanges();
 
     tick();
 
-    expect(input.value).toBe(editedIdea);
+    expect(input.value).toBe('Test');
   }));
 
   it('should submit the form when idea input is valid', () => {
     spyOn(component, 'submitIdea');
 
-    const submitButton = fixture.debugElement.query(By.css('#edit-idea-button'));
+    const submitButton = fixture.debugElement.query(By.css('[testId="edit-idea-button"]'));
     const event = new Event('input');
 
-    input.value = editedIdea;
+    input.value = 'Test';
     input.dispatchEvent(event);
 
     fixture.detectChanges();
@@ -81,7 +83,7 @@ describe('EditIdeaFormComponent', () => {
   it('should not submit the form when idea input is invalid', () => {
     spyOn(component, 'submitIdea');
 
-    const submitButton = fixture.debugElement.query(By.css('#edit-idea-button'));
+    const submitButton = fixture.debugElement.query(By.css('[testId="edit-idea-button"]'));
     const event = new Event('input');
 
     input.value = ' ';
@@ -89,8 +91,20 @@ describe('EditIdeaFormComponent', () => {
 
     fixture.detectChanges();
 
-    click(submitButton.nativeElement);
+    click(submitButton);
 
     expect(component.submitIdea).not.toHaveBeenCalled();
+  });
+
+  it('should call cancelEdition method after cancel button click', () => {
+    spyOn(component, 'cancelEdition');
+
+    const submitButton = fixture.debugElement.query(By.css('[testId="cancel-edition-button"]'));
+
+    click(submitButton);
+
+    fixture.detectChanges();
+
+    expect(component.cancelEdition).toHaveBeenCalled();
   });
 });

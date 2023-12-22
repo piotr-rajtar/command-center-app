@@ -11,14 +11,23 @@
     placeholder="Edit idea..."
     required
     type="text"
-    [(ngModel)]="ideaToEdit"
+    [(ngModel)]="editedIdeaContent"
   >
   <button
     id="edit-idea-button"
     class="btn btn-outline-primary"
-    [disabled]="!(ideaForm.valid && ideaToEdit.trim())"
+    [disabled]="!(ideaForm.valid && editedIdeaContent.trim())"
+    testId="edit-idea-button"
     type="submit"
   >
     Edit
+  </button>
+  <button
+    class="btn btn-outline-danger"
+    testId="cancel-edition-button"
+    type="button"
+    (click)="cancelEdition()"
+  >
+    x
   </button>
 </form>
