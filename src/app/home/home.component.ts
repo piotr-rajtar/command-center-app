@@ -13,7 +13,7 @@ import { CARDS } from './cards';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  router = inject(Router);
+  private router = inject(Router);
 
   CARDS = CARDS;
 
