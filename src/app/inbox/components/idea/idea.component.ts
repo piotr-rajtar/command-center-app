@@ -3,14 +3,20 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
+  OnInit,
   Output,
   computed,
   effect,
+  inject,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { DropdownService } from '../../../shared/services/dropdown.service';
+import { AppState } from '../../../typings/store';
 
+import * as InboxActions from '../../store/inbox.actions';
+import * as InboxSelectors from '../../store/inbox.selectors';
 import { Idea } from '../../typings';
 
 @Component({
@@ -20,20 +26,23 @@ import { Idea } from '../../typings';
   templateUrl: './idea.component.html',
   styleUrl: './idea.component.scss'
 })
-export class IdeaComponent implements OnDestroy {
+export class IdeaComponent implements OnDestroy, OnInit {
   @Input({ required: true }) idea!: Idea;
 
   @Output() assign = new EventEmitter<string>();
-  @Output() edit = new EventEmitter<string>();
-  @Output() remove = new EventEmitter<string>();
+
+  private dropdownService = inject(DropdownService);
+  private store = inject<Store<AppState>>(Store);
+
+  editedIdeaId!: string;
+  ideaToEditSubscription!: Subscription;
+  outsideClickSubscription?: Subscription;
 
   isDropdownOpen = computed<boolean>(() =>
     this.dropdownService.openedDropdownId() === this.idea.id
   );
 
-  outsideClickSubscription?: Subscription;
-
-  constructor(private dropdownService: DropdownService) {
+  constructor() {
     effect(() => {
       if(this.isDropdownOpen()) {
         this.outsideClickSubscription = this.dropdownService.outsideClick$.subscribe();
@@ -51,26 +60,55 @@ export class IdeaComponent implements OnDestroy {
     })
   }
 
+  ngOnInit(): void {
+    this.ideaToEditSubscription = this.store
+      .select(InboxSelectors.selectIdeaToEdit)
+      .subscribe(ideaToEdit => {
+        this.editedIdeaId = ideaToEdit && ideaToEdit.id || '';
+      });
+  }
+
   ngOnDestroy(): void {
     this.dropdownService.closeDropdown();
 
     if(this.outsideClickSubscription) {
       this.outsideClickSubscription.unsubscribe();
     }
+
+    this.ideaToEditSubscription.unsubscribe();
   }
 
   assignIdea() {
+    if(this.isIdeaEdited) {
+      return;
+    }
+
     this.assign.emit();
     this.dropdownService.closeDropdown();
   }
 
   editIdea() {
-    this.edit.emit();
+    if(this.isIdeaEdited) {
+      return;
+    }
+
+    this.store.dispatch(
+      InboxActions.ideaActions.setIdeaToEdit({ idea: this.idea })
+    );
+
     this.dropdownService.closeDropdown();
+
+    window.scrollTo(0, 0);
   }
 
   removeIdea() {
-    this.remove.emit();
+    if(this.isIdeaEdited) {
+      return;
+    }
+
+    this.store.dispatch(
+      InboxActions.ideaActions.ideaRemoval({ ideaId: this.idea.id })
+    );
     this.dropdownService.closeDropdown();
   }
 
@@ -81,5 +119,9 @@ export class IdeaComponent implements OnDestroy {
       this.dropdownService.openDropdown(this.idea.id);
     }
     event.stopPropagation();
+  }
+
+  get isIdeaEdited(): boolean {
+    return this.idea.id === this.editedIdeaId;
   }
 }

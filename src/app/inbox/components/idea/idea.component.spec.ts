@@ -1,24 +1,36 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 import { DropdownService } from '../../../shared/services/dropdown.service';
 import { click, dropdownServiceMock } from '../../../testing/utils';
 
 import { IdeaComponent } from './idea.component';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 describe('IdeaComponent', () => {
   let component: IdeaComponent;
   let fixture: ComponentFixture<IdeaComponent>;
   let dropdownService: DropdownService;
+  let store: MockStore;
 
   let actionsButtonDe: DebugElement;
   let dropdownMenuDe: DebugElement;
+
+  const initialState = {
+    inbox: {
+      ideaToEdit: {
+        id: '1',
+        content: 'Edited idea',
+      },
+    }
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [IdeaComponent],
       providers: [
+        provideMockStore({ initialState }),
         {
           provide: DropdownService,
           useValue: dropdownServiceMock,
@@ -27,6 +39,7 @@ describe('IdeaComponent', () => {
     })
     .compileComponents();
 
+    store = TestBed.inject(MockStore);
     dropdownService = TestBed.inject(DropdownService);
     fixture = TestBed.createComponent(IdeaComponent);
 
@@ -88,8 +101,26 @@ describe('IdeaComponent', () => {
     expect(dropdownMenuDe.classes['show']).toBeFalsy();
   });
 
-  it('should emits assign event after remove option click' ,() => {
-    spyOn(component.assign, 'emit')
+  it('should disable actions button when idea is under edition', () => {
+    spyOn(component, 'toggleDropdown');
+
+    const actionsButtonDe = fixture.debugElement.query(By.css('[testId="actionsButton"]'));
+
+    component.idea = {
+      ...component.idea,
+      id: initialState.inbox.ideaToEdit.id,
+    };
+
+    fixture.detectChanges();
+
+    click(actionsButtonDe.nativeElement);
+
+    expect(component.toggleDropdown).not.toHaveBeenCalled();
+    expect(actionsButtonDe.attributes['disabled']).not.toBeUndefined();
+  });
+
+  it('should emit assign event after remove option click' ,() => {
+    spyOn(component.assign, 'emit');
     component.toggleDropdown(new Event('click'));
 
     fixture.detectChanges();
@@ -102,6 +133,21 @@ describe('IdeaComponent', () => {
 
     expect(component.assign.emit).toHaveBeenCalled();
   });
+
+  it('should not emit assign event after remove option click when idea is under edition', () => {
+    spyOn(component.assign, 'emit');
+
+    component.idea = {
+      ...component.idea,
+      id: initialState.inbox.ideaToEdit.id,
+    };
+
+    fixture.detectChanges();
+
+    component.assignIdea();
+
+    expect(component.assign.emit).not.toHaveBeenCalled();
+  })
 
   it('should hide dropdown menu after edit option click, when dropdown is showed' ,() => {
     component.toggleDropdown(new Event('click'));
@@ -119,19 +165,31 @@ describe('IdeaComponent', () => {
     expect(dropdownMenuDe.classes['show']).toBeFalsy();
   });
 
-  it('should emits edit event after remove option click' ,() => {
-    spyOn(component.edit, 'emit')
-    component.toggleDropdown(new Event('click'));
-
-    fixture.detectChanges();
+  it('should call editIdea method after edit option click', () => {
+    spyOn(component, 'editIdea');
 
     const editOptionDe = fixture.debugElement.query(By.css('[testId="editOption"]'));
 
+    fixture.detectChanges();
+
     click(editOptionDe.nativeElement);
+
+    expect(component.editIdea).toHaveBeenCalled();
+  })
+
+  it('should not dispatch action to store on editIdea call when idea is under edition', () => {
+    spyOn(store, 'dispatch');
+
+    component.idea = {
+      ...component.idea,
+      id: initialState.inbox.ideaToEdit.id,
+    };
 
     fixture.detectChanges();
 
-    expect(component.edit.emit).toHaveBeenCalled();
+    component.editIdea();
+
+    expect(store.dispatch).not.toHaveBeenCalled();
   });
 
   it('should hide dropdown menu after remove option click, when dropdown is showed' ,() => {
@@ -150,18 +208,30 @@ describe('IdeaComponent', () => {
     expect(dropdownMenuDe.classes['show']).toBeFalsy();
   });
 
-  it('should emits remove event after remove option click' ,() => {
-    spyOn(component.remove, 'emit')
-    component.toggleDropdown(new Event('click'));
-
-    fixture.detectChanges();
+  it('should call removeIdea method after remove option click', () => {
+    spyOn(component, 'removeIdea');
 
     const removeOptionDe = fixture.debugElement.query(By.css('[testId="removeOption"]'));
 
+    fixture.detectChanges();
+
     click(removeOptionDe.nativeElement);
+
+    expect(component.removeIdea).toHaveBeenCalled();
+  })
+
+  it('should not dispatch action to store on removeIdea call when idea is under edition', () => {
+    spyOn(store, 'dispatch');
+
+    component.idea = {
+      ...component.idea,
+      id: initialState.inbox.ideaToEdit.id,
+    };
 
     fixture.detectChanges();
 
-    expect(component.remove.emit).toHaveBeenCalled();
+    component.removeIdea();
+
+    expect(store.dispatch).not.toHaveBeenCalled();
   });
 });

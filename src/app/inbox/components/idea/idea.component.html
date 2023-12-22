@@ -2,16 +2,17 @@
   <div class="card-body">
     <p class="card-text">{{ idea.content }}</p>
     <div class="dropdown d-grid d-md-flex">
-      <a
+      <button
         [attr.aria-expanded]="isDropdownOpen()"
         class="btn btn-secondary dropdown-toggle"
         [class.show]="isDropdownOpen()"
+        [disabled]="isIdeaEdited"
         role="button"
         testId="actionsButton"
         (click)="toggleDropdown($event)"
       >
         Actions
-      </a>
+    </button>
 
       <ul
         class="dropdown-menu"
