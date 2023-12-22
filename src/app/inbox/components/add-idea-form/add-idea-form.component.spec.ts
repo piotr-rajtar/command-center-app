@@ -1,18 +1,25 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { click } from '../../../testing/utils';
 
 import { AddIdeaFormComponent } from './add-idea-form.component';
 
-describe('IdeaFormComponent', () => {
+describe('AddIdeaFormComponent', () => {
   let component: AddIdeaFormComponent;
   let fixture: ComponentFixture<AddIdeaFormComponent>;
   let input: HTMLInputElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddIdeaFormComponent]
+      imports: [AddIdeaFormComponent],
+      providers: [provideMockStore()],
     })
     .compileComponents();
 
