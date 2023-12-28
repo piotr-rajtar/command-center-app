@@ -4,7 +4,7 @@ import { AppState } from '../../typings/store';
 
 import { InboxState } from './inbox.reducer';
 
-export const selectInbox = (state: AppState) => state.inbox;
+const selectInbox = (state: AppState) => state.inbox;
 
 export const selectAreIdeasLoaded = createSelector(
   selectInbox,
@@ -16,12 +16,12 @@ export const selectIdeas = createSelector(
   (inboxState: InboxState) => inboxState.ideas
 );
 
-export const selectIsEditMode = createSelector(
-  selectInbox,
-  (inboxState: InboxState) => inboxState.isEditMode
-);
-
 export const selectIdeaToEdit = createSelector(
   selectInbox,
   (inboxState: InboxState) => inboxState.ideaToEdit
+);
+
+export const selectIsEditMode = createSelector(
+  selectInbox,
+  (inboxState: InboxState) => inboxState.isEditMode
 );
