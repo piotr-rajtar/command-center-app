@@ -9,7 +9,7 @@ import * as InboxActions from '../store/inbox.actions';
 import * as InboxSelectors from '../store/inbox.selectors';
 
 
-export const inboxResolver: ResolveFn<any> = (_route, _state) => {
+export const inboxResolver: ResolveFn<boolean> = (_route, _state) => {
   const store = inject<Store<AppState>>(Store);
 
   return store.select(InboxSelectors.selectAreIdeasLoaded).pipe(
