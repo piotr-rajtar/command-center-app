@@ -49,11 +49,11 @@ export const deleteIdea = createEffect(
           .pipe(
             map(() => InboxActions.removeIdeaActions.ideaRemovalSuccess({
               ideaId: action.ideaId,
-              successMessage: 'Idea deleted successfully'
+              successMessage: 'Idea deleted successfully',
             })),
             catchError(() =>
               of(InboxActions.removeIdeaActions.ideaRemovalError({
-                errorMessage: 'Idea deletion failed'
+                errorMessage: 'Idea deletion failed',
               }))
             ),
           );
@@ -100,12 +100,12 @@ export const updateIdea = createEffect(
             map(() =>
               InboxActions.updateIdeaActions.ideaUpdationSuccess({
                 idea: action.idea,
-                successMessage: 'Idea updated Successfully'
+                successMessage: 'Idea updated Successfully',
               })
             ),
             catchError(() =>
               of(InboxActions.updateIdeaActions.ideaUpdationError({
-                errorMessage: 'Idea update failed'
+                errorMessage: 'Idea update failed',
               }))
             ),
           );
