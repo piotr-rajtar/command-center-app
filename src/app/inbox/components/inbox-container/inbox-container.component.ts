@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import { EmptyListComponent } from '../../../shared/components/empty-list/empty-list.component';
 import { AppState } from '../../../typings/store';
 
 import * as InboxActions from '../../store/inbox.actions';
@@ -20,6 +21,7 @@ import { IdeaListComponent } from '../idea-list/idea-list.component';
     CommonModule,
     AddIdeaFormComponent,
     EditIdeaFormComponent,
+    EmptyListComponent,
     IdeaListComponent,
   ],
   templateUrl: './inbox-container.component.html',

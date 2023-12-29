@@ -18,5 +18,12 @@
         (assign)="assignIdea($event)"
       />
     </div>
+  } @else {
+    <div class="row">
+      <app-empty-list
+        header="No new ideas!"
+        imageAlt="No new ideas"
+      />
+    </div>
   }
 </div>

@@ -54,7 +54,7 @@ describe('InboxContainerComponent', () => {
     expect(addIdeaFormDe).toBeTruthy();
   });
 
-  it('should display IdaList component when some ideas present', () => {
+  it('should display IdeaList component when some ideas present', () => {
     store.setState({
       inbox: {
         isEditMode: false,
@@ -73,5 +73,26 @@ describe('InboxContainerComponent', () => {
     const ideaListDe = fixture.debugElement.query(By.css('app-idea-list'));
 
     expect(ideaListDe).toBeFalsy();
+  });
+
+  it('should display EmptyList component when no ideas added', () => {
+    const emptyListDe = fixture.debugElement.query(By.css('app-empty-list'));
+
+    expect(emptyListDe).toBeTruthy();
+  });
+
+  it('should not display EmptyList component when some ideas present', () => {
+    store.setState({
+      inbox: {
+        isEditMode: false,
+        ideas: [{ id: '1', content: 'Test' }],
+      },
+    });
+
+    fixture.detectChanges();
+
+    const emptyListDe = fixture.debugElement.query(By.css('app-empty-list'));
+
+    expect(emptyListDe).toBeFalsy();
   });
 });
