@@ -107,7 +107,7 @@ export class IdeaComponent implements OnDestroy, OnInit {
     }
 
     this.store.dispatch(
-      InboxActions.ideaActions.ideaRemoval({ ideaId: this.idea.id })
+      InboxActions.ideaActions.startIdeaRemoval({ ideaId: this.idea.id })
     );
     this.dropdownService.closeDropdown();
   }

@@ -42,7 +42,7 @@ export const createIdea = createEffect(
 export const deleteIdea = createEffect(
   (actions$ = inject(Actions), ideasHttpService = inject(IdeasHttpService)) => {
     return actions$.pipe(
-      ofType(InboxActions.ideaActions.ideaRemoval),
+      ofType(InboxActions.ideaActions.startIdeaRemoval),
       mergeMap(action => {
         return ideasHttpService
           .deleteIdea(action.ideaId)
@@ -113,4 +113,4 @@ export const updateIdea = createEffect(
     );
   },
   { functional: true }
-)
+);

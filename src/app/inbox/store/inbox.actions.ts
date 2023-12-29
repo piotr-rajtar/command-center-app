@@ -36,7 +36,7 @@ export const ideaActions = createActionGroup({
   source: 'Idea',
   events: {
     'Set Idea To Edit': props<{ idea: Idea }>(),
-    'Idea Removal': props<{ ideaId: string }>(),
+    'Start Idea Removal': props<{ ideaId: string }>(),
   },
 });
 
