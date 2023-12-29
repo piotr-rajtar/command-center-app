@@ -11,7 +11,6 @@ import * as InboxActions from '../../store/inbox.actions';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './add-idea-form.component.html',
-  styleUrl: './add-idea-form.component.scss'
 })
 export class AddIdeaFormComponent {
   private store = inject<Store<AppState>>(Store);

@@ -12,7 +12,6 @@ import { NAV_LINKS } from './nav-links';
   standalone: true,
   imports: [ RouterModule ],
   templateUrl: './app-header.component.html',
-  styleUrl: './app-header.component.scss'
 })
 export class AppHeaderComponent implements OnDestroy {
   NAV_LINKS = NAV_LINKS;

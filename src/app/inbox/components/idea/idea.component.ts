@@ -24,7 +24,7 @@ import { Idea } from '../../typings';
   standalone: true,
   imports: [],
   templateUrl: './idea.component.html',
-  styleUrl: './idea.component.scss'
+  styleUrl: './idea.component.scss',
 })
 export class IdeaComponent implements OnDestroy, OnInit {
   @Input({ required: true }) idea!: Idea;

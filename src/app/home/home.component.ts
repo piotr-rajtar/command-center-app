@@ -10,7 +10,6 @@ import { CARDS } from './cards';
   standalone: true,
   imports: [CardListComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
 })
 export class HomeComponent {
   private router = inject(Router);

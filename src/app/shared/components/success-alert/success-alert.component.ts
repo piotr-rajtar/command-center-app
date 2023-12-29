@@ -10,7 +10,6 @@ import {
   standalone: true,
   imports: [],
   templateUrl: './success-alert.component.html',
-  styleUrl: './success-alert.component.scss'
 })
 export class SuccessAlertComponent {
   @Input({ required: true }) message!: string;

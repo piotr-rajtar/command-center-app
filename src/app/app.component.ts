@@ -13,7 +13,6 @@ import { AppHeaderComponent } from './app-header/app-header.component';
     AppHeaderComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
 })
 export class AppComponent {
 }

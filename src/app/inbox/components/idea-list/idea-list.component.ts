@@ -9,7 +9,6 @@ import { IdeaComponent } from '../idea/idea.component';
   standalone: true,
   imports: [IdeaComponent],
   templateUrl: './idea-list.component.html',
-  styleUrl: './idea-list.component.scss'
 })
 export class IdeaListComponent {
   @Input({ required: true }) ideas!: Idea[];

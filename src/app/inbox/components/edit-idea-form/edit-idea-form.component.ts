@@ -13,7 +13,6 @@ import * as InboxSelectors from '../../store/inbox.selectors';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './edit-idea-form.component.html',
-  styleUrl: './edit-idea-form.component.scss'
 })
 export class EditIdeaFormComponent implements OnDestroy, OnInit {
   private store = inject<Store<AppState>>(Store);
