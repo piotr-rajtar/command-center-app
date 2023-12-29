@@ -1,8 +1,5 @@
-import {
-  INBOX_FEATURE_KEY,
-  InboxState,
-} from '../inbox/store/inbox.reducer';
+import * as fromInbox from '../inbox/store/inbox.reducer';
 
 export interface AppState {
-  [INBOX_FEATURE_KEY]: InboxState;
+  [fromInbox.INBOX_FEATURE_KEY]: fromInbox.InboxState;
 }

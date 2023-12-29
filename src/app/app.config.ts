@@ -9,7 +9,7 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
-import { INBOX_FEATURE_KEY, inboxReducer } from './inbox/store/inbox.reducer';
+import * as fromInbox from './inbox/store/inbox.reducer';
 import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideStore({
-        [INBOX_FEATURE_KEY]: inboxReducer
+        [fromInbox.INBOX_FEATURE_KEY]: fromInbox.inboxReducer
     }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideEffects()
